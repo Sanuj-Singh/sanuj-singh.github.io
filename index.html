@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanuj Singh | Creative Technologist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-cyan: #00f3ff;
+            --accent-pink: #bc13fe;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND ANIMATION --- */
+        .background-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.08), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.08), transparent 25%);
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent-cyan); }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            display: inline-block;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 2px solid var(--accent-pink);
+        }
+
+        /* --- HERO SECTION --- */
+        #home {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .typewriter {
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            font-family: 'Courier New', monospace;
+            min-height: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        /* --- ABOUT ME --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .about-highlight {
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        /* --- TECH STACK --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category h3 {
+            color: var(--accent-pink);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill-pill {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .skill-pill:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        /* --- PROJECTS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+            border-color: var(--accent-cyan);
+        }
+
+        .card h3 { color: #fff; margin-bottom: 10px; }
+        .card p { color: #aaa; margin-bottom: 20px; line-height: 1.5; font-size: 0.95rem; }
+
+        .btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-live { background: var(--accent-pink); color: #fff; margin-right: 10px; }
+        .btn-code { border: 1px solid #fff; color: #fff; }
+        .btn:hover { opacity: 0.8; }
+
+        /* --- RESUME SECTION --- */
+        .resume-banner {
+            background: linear-gradient(45deg, rgba(188, 19, 254, 0.1), rgba(0, 243, 255, 0.1));
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .btn-resume {
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        .btn-resume:hover {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+
+        /* --- CONTACT --- */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-icon {
+            color: #fff;
+            font-size: 2.5rem;
+            transition: color 0.3s;
+        }
+
+        .contact-icon:hover { color: var(--accent-pink); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 50px;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .about-content { grid-template-columns: 1fr; }
+            nav { padding: 20px; }
+            .nav-links { display: none; } /* Hide nav links on very small screens for simplicity */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-gradient"></div>
+
+    <nav>
+        <div class="logo">Sanuj<span style="color:var(--accent-cyan)">.Singh</span></div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#resume">Resume</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <section id="home">
+            <p style="color: var(--accent-pink); letter-spacing: 2px; font-weight: bold;">HELLO, WORLD.</p>
+            <h1>I'm Sanuj Singh</h1>
+            <div class="typewriter" id="typing-text"></div>
+            <p style="color: #888; max-width: 500px; line-height: 1.6;">
+                Merging the precision of Engineering with the art of Storytelling.
+            </p>
+            <br>
+            <a href="#projects" class="btn btn-code" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">View My Work</a>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I am currently a <b>4th Year Computer Science Engineer</b> at <span class="about-highlight">KIIT University</span>. 
+                        My journey in tech is driven by a curiosity to understand not just how models work, but how they can be deployed to solve real-world problems.
+                    </p>
+                    <br>
+                    <p>
+                        Beyond the terminal, I am a <b>Poet and Filmmaker</b>. I believe that writing code and writing poetry share a common soul—both require structure, rhythm, and the ability to create something from nothing.
+                    </p>
+                    <br>
+                    <p>
+                        I am currently focused on <b>Deep Learning, Time Series Forecasting, and Building Autonomous AI Agents</b>.
+                    </p>
+                </div>
+                <div style="background: var(--glass-bg); padding: 20px; border-radius: 20px; border: 1px solid var(--glass-border); text-align: center;">
+                     <i class="fas fa-user-astronaut" style="font-size: 100px; color: var(--accent-pink);"></i>
+                     <p style="margin-top: 20px; color: #aaa;">"Code is poetry written for machines."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">Tech Arsenal</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-pill">Python </span>
+                       
+                        <span class="skill-pill">SQL</span>
+                        
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-brain"></i> AI & Data</h3>
+                    <div class="skill-tags">
+                        <span class="skill-pill">Deep Learning</span>
+                        <span class="skill-pill">PyTorch</span>
+                        <span class="skill-pill">LangChain</span>
+                        <span class="skill-pill">LangGraph</span>
+                        <span class="skill-pill">Time Series (Prophet)</span>
+                        <span class="skill-pill">Pandas/NumPy</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-laptop-code"></i> Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-pill">Streamlit</span>
+                        <span class="skill-pill">Git/GitHub</span>
+                        <span class="skill-pill">VS Code</span>
+                        <span class="skill-pill">Jupyter</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Selected Works</h2>
+            <div class="project-grid">
+
+                <div class="card">
+                    <div>
+                        <h3><i class="fas fa-robot"></i> Swarm Trader</h3>
+                        <p>An autonomous Multi-Agent system for market analysis utilizing LangGraph to orchestrate AI agents for financial insights.</p>
+                        <div style="margin-bottom: 15px;">
+                            <small style="color: var(--accent-cyan);">LangGraph • AI Agents • Finance</small>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://swarmtrader.streamlit.app" target="_blank" class="btn btn-live">Live Demo</a>
+                        <a href="https://github.com/Sanuj-Singh/SwarmTrader" target="_blank" class="btn btn-code">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <h3><i class="fas fa-eye"></i> Deepfake Detector</h3>
+                        <p>Combating misinformation with Computer Vision. A PyTorch-based model that detects manipulated media with high precision.</p>
+                        <div style="margin-bottom: 15px;">
+                            <small style="color: var(--accent-cyan);">PyTorch • CV • Security</small>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://deepfake-avbejg5appkdhxdaffhhlnp.streamlit.app" target="_blank" class="btn btn-live">Live Demo</a>
+                        <a href="https://github.com/Sanuj-Singh/deepfake" target="_blank" class="btn btn-code">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <h3><i class="fas fa-chart-line"></i> Gas Price Forecast</h3>
+                        <p>Time-series forecasting project using the FB Prophet library to predict natural gas prices based on historical market data.</p>
+                        <div style="margin-bottom: 15px;">
+                            <small style="color: var(--accent-cyan);">Prophet • Time Series • Data Science</small>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://github.com/Sanuj-Singh/Natural-Gas-Price-Forecasting-Project" target="_blank" class="btn btn-code">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <h3><i class="fas fa-car"></i> CarDekho Dashboard</h3>
+                        <p>Interactive analytics dashboard for used car prices. Provides deep insights into market trends using visualization.</p>
+                        <div style="margin-bottom: 15px;">
+                            <small style="color: var(--accent-cyan);">Streamlit • Pandas • Visualization</small>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://cardekhodashboard-pi28sg2guj3sugr729hpsy.streamlit.app" target="_blank" class="btn btn-live">Live Demo</a>
+                        <a href="https://github.com/Sanuj-Singh/Cardekho_Dashboard" target="_blank" class="btn btn-code">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <h3><i class="fas fa-home"></i> House Price ML</h3>
+                        <p>A predictive machine learning regression model optimized to estimate property values based on key features.</p>
+                        <div style="margin-bottom: 15px;">
+                            <small style="color: var(--accent-cyan);">Scikit-Learn • Regression • ML</small>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://house-prices-regression-anaptjfxxnusuajxtgmauk.streamlit.app" target="_blank" class="btn btn-live">Live Demo</a>
+                        <a href="https://github.com/Sanuj-Singh/house-prices-regression" target="_blank" class="btn btn-code">GitHub</a>
+                    </div>
+                </div>
+
+                 <div class="card">
+                    <div>
+                        <h3><i class="fas fa-comments"></i> AI Chatbot</h3>
+                        <p>A conversational agent showcasing natural language processing and session state management.</p>
+                        <div style="margin-bottom: 15px;">
+                            <small style="color: var(--accent-cyan);">NLP • GenAI • UI/UX</small>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://chatbot-3fhrpmfdqkwikmyz9evxan.streamlit.app" target="_blank" class="btn btn-live">Live Demo</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="resume">
+            <div class="resume-banner">
+                <h2 style="color: #fff; margin-bottom: 10px;">Looking for the full story?</h2>
+                <p style="color: #ccc;">Check out my resume for a detailed history of my education, experience, and certifications.</p>
+                <a href="resume.pdf" download class="btn btn-resume"><i class="fas fa-download"></i> Download Resume</a>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <p style="text-align: center; color: #aaa; max-width: 600px; margin: 0 auto;">
+                Whether you have a question, a project idea, or just want to discuss the latest in AI or Poetry, feel free to reach out.
+            </p>
+            <div class="contact-links">
+                <a href="connectsanuj@gmail.com" class="contact-icon" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/sanuj-singh" class="contact-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Sanuj-Singh" class="contact-icon" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+        </section>
+
+        <footer>
+            <p>Sanuj Singh &copy; 2025. Built with HTML5, CSS3 & Creativity.</p>
+        </footer>
+    </div>
+
+    <script>
+        const textElement = document.getElementById('typing-text');
+        const roles = [
+            "AI Engineer 🤖",
+            "Data Scientist 📊",
+            "Data Analyst💻", 
+            "Poet ✒️"
+        ];
+        
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50; 
+            } else {
+                textElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                isDeleting = true;
+                typeSpeed = 2000; 
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', type);
+    </script>
+</body>
+</html>
